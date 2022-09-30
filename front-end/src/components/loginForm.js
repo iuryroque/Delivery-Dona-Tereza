@@ -39,7 +39,7 @@ export default function LoginForm() {
     }
   }, [role]);
 
-  const handleLoginClick = async () => {
+  const handleLoginPressed = async () => {
     try {
       const { user } = await loginRequest('/login', { email, password });
       localStorage.setItem('user', JSON.stringify(user));
@@ -52,7 +52,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="login-container">
+    <form onSubmit={ handleLoginPressed } className="login-container">
       { signIn && <Navigate to={ role } /> }
       <label htmlFor="email-input">
         <input
@@ -76,10 +76,9 @@ export default function LoginForm() {
       </label>
       <button
         className="login-buttons"
-        type="button"
+        type="submit"
         disabled={ disabled }
         data-testid="common_login__button-login"
-        onClick={ handleLoginClick }
       >
         Login
       </button>
@@ -99,6 +98,6 @@ export default function LoginForm() {
             Algo errado não está certo.
           </span>
         )}
-    </div>
+    </form>
   );
 }
